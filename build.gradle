@@ -1,9 +1,10 @@
 plugins {
     id 'java-library'
+    id 'maven-publish'
 }
 
 group = 'com.github.sep-es-br'
-version = '1.0.0'
+version = '1.0.1'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -15,5 +16,14 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.2.12.RELEASE'
-    implementation 'com.github.sep-es-br:agreement-core:1.0.0'
+    implementation 'com.github.sep-es-br:pmo-core-agreement:1.0.1'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'agreement-parser'
+            from components.java
+        }
+    }
 }

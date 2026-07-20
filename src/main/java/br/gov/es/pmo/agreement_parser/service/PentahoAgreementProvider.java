@@ -7,6 +7,7 @@ import br.gov.es.pmo.agreement_core.model.IAgreementProvider;
 import br.gov.es.pmo.agreement_parser.model.PentahoQueryResponse;
 import br.gov.es.pmo.agreement_parser.properties.PentahoAgreementProperties;
 import org.springframework.http.HttpHeaders;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,10 +21,15 @@ public class PentahoAgreementProvider implements IAgreementProvider {
     private static final String CDA_ENDPOINT = "/pentaho/plugin/cda/api/doQuery";
 
     private final PentahoAgreementProperties properties;
+    private final Environment environment;
     private final WebClient webClient;
 
-    public PentahoAgreementProvider(PentahoAgreementProperties properties) {
+    public PentahoAgreementProvider(
+        PentahoAgreementProperties properties,
+        Environment environment
+    ) {
         this.properties = properties;
+        this.environment = environment;
         this.webClient = WebClient.builder().baseUrl(properties.getBaseUrl()).build();
     }
 
@@ -165,14 +171,26 @@ public class PentahoAgreementProvider implements IAgreementProvider {
     }
 
     private void validateCredentials() {
-        if (!StringUtils.hasText(properties.getUserId())
-            || !StringUtils.hasText(properties.getPassword())) {
+        if (!StringUtils.hasText(userId())
+            || !StringUtils.hasText(password())) {
             throw new IllegalStateException("Credenciais do Pentaho não configuradas");
         }
     }
 
     private void setBasicAuth(HttpHeaders headers) {
-        headers.setBasicAuth(properties.getUserId(), properties.getPassword());
+        headers.setBasicAuth(userId(), password());
+    }
+
+    private String userId() {
+        return StringUtils.hasText(properties.getUserId())
+            ? properties.getUserId()
+            : environment.getProperty("pentahoBI.userId");
+    }
+
+    private String password() {
+        return StringUtils.hasText(properties.getPassword())
+            ? properties.getPassword()
+            : environment.getProperty("pentahoBI.password");
     }
 
     private static String value(List<Object> row, int index) {

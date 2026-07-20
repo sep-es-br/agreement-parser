@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'com.github.sep-es-br'
+version = '1.0.0'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.2.12.RELEASE'
+    implementation 'com.github.sep-es-br:agreement-core:1.0.0'
+}

@@ -5,33 +5,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "pentaho-bi")
 public class PentahoAgreementProperties {
 
-    private String baseUrl = "https://bi.sep.es.gov.br";
+    private String baseUrl;
     private String userId;
     private String password;
-    private String cooperationYearsPath =
-        "/public/dashboard/pmo/dados_abertos/dados_abertos_conv_ano.cda";
-    private String cooperationYearsDataAccessId =
-        "dados_abertos_conv_ano";
-    private String cooperationOrganizationsPath =
-        "/public/dashboard/pmo/dados_abertos/dados_abertos_conv_orgao.cda";
-    private String cooperationOrganizationsDataAccessId =
-        "dados_abertos_conv_orgao";
-    private String cooperationProcessesPath =
-        "/public/dashboard/pmo/dados_abertos/dados_abertos_conv_processos.cda";
-    private String cooperationProcessesDataAccessId =
-        "dados_abertos_conv_processos";
-    private String contractYearsPath =
-        "/public/dashboard/pmo/dados_abertos/dados_abertos_contr_ano.cda";
-    private String contractYearsDataAccessId =
-        "dados_abertos_contr_ano";
-    private String contractOrganizationsPath =
-        "/public/dashboard/pmo/dados_abertos/dados_abertos_contr_orgao.cda";
-    private String contractOrganizationsDataAccessId =
-        "dados_abertos_contr_orgao";
-    private String contractProcessesPath =
-        "/public/dashboard/pmo/dados_abertos/dados_abertos_contr_processos.cda";
-    private String contractProcessesDataAccessId =
-        "dados_abertos_contr_processos";
+    private String cooperationYearsPath;
+    private String cooperationYearsDataAccessId;
+    private String cooperationOrganizationsPath;
+    private String cooperationOrganizationsDataAccessId;
+    private String cooperationProcessesPath;
+    private String cooperationProcessesDataAccessId;
+    private String contractYearsPath;
+    private String contractYearsDataAccessId;
+    private String contractOrganizationsPath;
+    private String contractOrganizationsDataAccessId;
+    private String contractProcessesPath;
+    private String contractProcessesDataAccessId;
 
     public String getBaseUrl() { return baseUrl; }
     public void setBaseUrl(String baseUrl) { this.baseUrl = baseUrl; }

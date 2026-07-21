@@ -87,6 +87,28 @@ public class PentahoAgreementProvider implements IAgreementProvider {
             .collect(Collectors.toList());
     }
 
+    @Override
+    public AgreementDto getAgreement(
+        AgreementType type,
+        Long processId
+    ) {
+        String parameterName = type == AgreementType.CONTRACT
+            ? "paramp_cod_origem"
+            : "paramp_cod_conv";
+
+        PentahoQueryResponse response = query(
+            agreementPath(type),
+            agreementDataAccessId(type),
+            parameterName,
+            String.valueOf(processId)
+        );
+
+        return response.getResultset().stream()
+            .findFirst()
+            .map(row -> toAgreementDetail(type, row))
+            .orElse(null);
+    }
+
     private PentahoQueryResponse query(
         String path,
         String dataAccessId,
@@ -164,6 +186,33 @@ public class PentahoAgreementProvider implements IAgreementProvider {
         return dto;
     }
 
+    private AgreementDto toAgreementDetail(
+        AgreementType type,
+        List<Object> row
+    ) {
+        AgreementDto dto = new AgreementDto();
+        dto.setType(type);
+        dto.setProcessId(toLong(value(row, 0)));
+
+        if (type == AgreementType.CONTRACT) {
+            dto.setObject(value(row, 1));
+            dto.setProtocol(value(row, 2));
+            dto.setPartyName(value(row, 3));
+            dto.setPartyCnpj(value(row, 4));
+            dto.setYear(toLong(value(row, 5)));
+            dto.setOrganizationName(value(row, 6));
+        } else {
+            dto.setOrganizationName(value(row, 1));
+            dto.setObject(value(row, 2));
+            dto.setProtocol(value(row, 3));
+            dto.setPartyName(value(row, 4));
+            dto.setPartyCnpj(value(row, 5));
+            dto.setYear(toLong(value(row, 6)));
+        }
+
+        return dto;
+    }
+
     private void validateCredentials() {
         if (!StringUtils.hasText(userId())
             || !StringUtils.hasText(password())) {
@@ -234,5 +283,17 @@ public class PentahoAgreementProvider implements IAgreementProvider {
         return type == AgreementType.CONTRACT
             ? properties.getContractProcessesDataAccessId()
             : properties.getCooperationProcessesDataAccessId();
+    }
+
+    private String agreementPath(AgreementType type) {
+        return type == AgreementType.CONTRACT
+            ? properties.getContractAgreementPath()
+            : properties.getCooperationAgreementPath();
+    }
+
+    private String agreementDataAccessId(AgreementType type) {
+        return type == AgreementType.CONTRACT
+            ? properties.getContractAgreementDataAccessId()
+            : properties.getCooperationAgreementDataAccessId();
     }
 }

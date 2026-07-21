@@ -14,12 +14,16 @@ public class PentahoAgreementProperties {
     private String cooperationOrganizationsDataAccessId;
     private String cooperationProcessesPath;
     private String cooperationProcessesDataAccessId;
+    private String cooperationAgreementPath;
+    private String cooperationAgreementDataAccessId;
     private String contractYearsPath;
     private String contractYearsDataAccessId;
     private String contractOrganizationsPath;
     private String contractOrganizationsDataAccessId;
     private String contractProcessesPath;
     private String contractProcessesDataAccessId;
+    private String contractAgreementPath;
+    private String contractAgreementDataAccessId;
 
     public String getBaseUrl() { return baseUrl; }
     public void setBaseUrl(String baseUrl) { this.baseUrl = baseUrl; }
@@ -39,6 +43,10 @@ public class PentahoAgreementProperties {
     public void setCooperationProcessesPath(String value) { this.cooperationProcessesPath = value; }
     public String getCooperationProcessesDataAccessId() { return cooperationProcessesDataAccessId; }
     public void setCooperationProcessesDataAccessId(String value) { this.cooperationProcessesDataAccessId = value; }
+    public String getCooperationAgreementPath() { return cooperationAgreementPath; }
+    public void setCooperationAgreementPath(String value) { this.cooperationAgreementPath = value; }
+    public String getCooperationAgreementDataAccessId() { return cooperationAgreementDataAccessId; }
+    public void setCooperationAgreementDataAccessId(String value) { this.cooperationAgreementDataAccessId = value; }
     public String getContractYearsPath() { return contractYearsPath; }
     public void setContractYearsPath(String value) { this.contractYearsPath = value; }
     public String getContractYearsDataAccessId() { return contractYearsDataAccessId; }
@@ -51,4 +59,8 @@ public class PentahoAgreementProperties {
     public void setContractProcessesPath(String value) { this.contractProcessesPath = value; }
     public String getContractProcessesDataAccessId() { return contractProcessesDataAccessId; }
     public void setContractProcessesDataAccessId(String value) { this.contractProcessesDataAccessId = value; }
+    public String getContractAgreementPath() { return contractAgreementPath; }
+    public void setContractAgreementPath(String value) { this.contractAgreementPath = value; }
+    public String getContractAgreementDataAccessId() { return contractAgreementDataAccessId; }
+    public void setContractAgreementDataAccessId(String value) { this.contractAgreementDataAccessId = value; }
 }

@@ -155,15 +155,8 @@ public class PentahoAgreementProvider implements IAgreementProvider {
         dto.setYear(year);
         dto.setProcessId(toLong(value(row, 0)));
         dto.setObject(value(row, 1));
-        dto.setProcessNumber(value(row, 2));
         dto.setProtocol(value(row, 2));
-
-        if (type == AgreementType.CONTRACT) {
-            dto.setOrganizationName(organization.getName());
-        } else {
-            dto.setManagementUnitId(toLong(organization.getIdentifier()));
-            dto.setManagementUnitName(organization.getName());
-        }
+        dto.setOrganizationName(organization.getName());
 
         dto.setPartyName(value(row, 3));
         dto.setPartyCnpj(value(row, 4));
